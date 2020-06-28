@@ -1,0 +1,6 @@
+.root{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    background-color: slategrey;
+}
