@@ -39,30 +39,20 @@
 // Т.е. <input disabled={true}/> эквивалентен <input disabled />
 
 // В JSX html по умолчанию, в целях безопасности, игнорируется, т.е. передается обычной строкой, а не кодом.
+//================================================================================================================
+
+// Структура приложения
+// Один файл - один компонент. Это типичный паттерн организации кода для Реакт приложений.
+// Если в файле есть хоть одна строка JSX кода, то необходимо импортировать Реакт.
+// Компоненты помещаем в папку src/components
+// Компоненты должны быть независимыми для дальнейшего переиспользования
 
 import React from "react";
 import ReactDOM from "react-dom";
 
-const ToDoList = () => {
-  const arr = ["Task-0", "Task-1", "Task-2"];
-  return (
-    <ul>
-      <li>{arr[0]}</li>
-      <li>{arr[1]}</li>
-      <li>{arr[2]}</li>
-    </ul>
-  );
-};
-
-const AppHeader = () => {
-  return <h1>My ToDo List</h1>;
-};
-
-const SearchPanel = () => {
-  const placeholderText = "Search smthn";
-  const inputStyle = { fontSize: "20px" };
-  return <input placeholder={placeholderText} style={inputStyle} />;
-};
+import ToDoList from "./components/todo-list";
+import AppHeader from "./components/app-header";
+import SearchPanel from "./components/search-panel";
 
 const App = () => {
   const isLogged = true;
