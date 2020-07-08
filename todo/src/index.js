@@ -63,6 +63,25 @@
 // Массивы как свойства
 // Используя {} в JSX можно вставлять массивы элементов(не только по одному)
 // Можно передать все свойства объекта в компонент, используя Object Spread оператор, не перечисляя каждое. {...el}
+//===================================================================================================================
+
+// Коллекции и ключи.
+// Процесс поиска изменений через react reconciliation algorithm основывается на уникальных ключах каждого элемента,
+// чтобы иметь возможность быстрого, а не долгого последовательного, поиска изменившихся элементов для их обновления.
+// Нельзя использовать в качестве ключеий индексы элементов, т.к. теряется смысл работы алгоритма. Или мы должны быть
+// уверены в том, что индексы меняться не будут и новые элементы будут добавляться ТОЛЬКО в конец списка.
+
+// Поэтому, каждому JSX элементу в массиве нужно уникальное свойство key
+//=====================================================================================================================
+
+// Импорт css
+// Для сборки проекта мы используем Webpack.
+// Импортируем файл css в файл js нашего компонента.
+// webpack видит такой импорт и самостоятельно вставляет наш css код в шаблон.
+// Типичный паттерн - называть файлы css точно так же как js файл компонента.
+
+// М.б. другие правила. В нашем случае - каждый корневой jsx элемент компонента, который мы возвращаем в компоненте,
+// будет содержать className с названием этого компонента.
 
 import React from "react";
 import ReactDOM from "react-dom";
@@ -70,25 +89,26 @@ import ReactDOM from "react-dom";
 import ToDoList from "./components/todo-list";
 import AppHeader from "./components/app-header";
 import SearchPanel from "./components/search-panel";
+import ItemStatusFilter from "./components/item-status-filter";
+
+import "./index.css";
 
 const todoData = [
-  { content: "Learn React", important: false },
-  { content: "Learn JS", important: true },
-  { content: "Build React App", important: false },
+  { id: 1, content: "Learn React", important: false },
+  { id: 2, content: "Learn JS", important: true },
+  { id: 3, content: "Build React App", important: false },
 ];
 
 const App = () => {
-  const isLogged = true;
-  const loginplease = <span>Log in please</span>;
-  const welcomeBack = <span>welcome Back</span>;
   return (
-    <>
-      <span>{new Date().toString()}</span>
-      {isLogged ? welcomeBack : loginplease}
-      <AppHeader />
-      <SearchPanel />
+    <div className="todo-app">
+      <AppHeader toDo={1} done={5} />
+      <div className="top-panel d-flex">
+        <SearchPanel />
+        <ItemStatusFilter />
+      </div>
       <ToDoList todos={todoData} />
-    </>
+    </div>
   );
 };
 
