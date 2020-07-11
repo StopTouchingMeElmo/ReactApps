@@ -4,7 +4,7 @@ import "./todo-list-item.css";
 
 const ToDoListItem = ({ content, important = false }) => {
   const spanStyle = {
-    color: important ? "tomato" : "black",
+    color: important ? "steelblue" : "black",
     fontWeight: important ? "bold" : "normal",
   };
 

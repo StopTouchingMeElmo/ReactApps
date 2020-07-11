@@ -46,6 +46,11 @@
 // Если в файле есть хоть одна строка JSX кода, то необходимо импортировать Реакт.
 // Компоненты помещаем в папку src/components
 // Компоненты должны быть независимыми для дальнейшего переиспользования
+
+// Кроме js и css компонента могут быть другие файлы с unit тестами, иконками и другими ресурсами.
+// Поэтому файлы компонента удобно хранить в отдельной папке
+// Файл index.js в папке компонента импортируется по умолчаюнию. Обычно в него импортируется и экспортируется компонент.
+// Сделано для удобство импорта компонентов. Путь импорта можно указывать только названием папки.
 //================================================================================================================
 
 // Props свойства
@@ -86,30 +91,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import ToDoList from "./components/todo-list";
-import AppHeader from "./components/app-header";
-import SearchPanel from "./components/search-panel";
-import ItemStatusFilter from "./components/item-status-filter";
-
-import "./index.css";
-
-const todoData = [
-  { id: 1, content: "Learn React", important: false },
-  { id: 2, content: "Learn JS", important: true },
-  { id: 3, content: "Build React App", important: false },
-];
-
-const App = () => {
-  return (
-    <div className="todo-app">
-      <AppHeader toDo={1} done={5} />
-      <div className="top-panel d-flex">
-        <SearchPanel />
-        <ItemStatusFilter />
-      </div>
-      <ToDoList todos={todoData} />
-    </div>
-  );
-};
+import App from "./components/app";
 
 ReactDOM.render(<App />, document.getElementById("root"));
