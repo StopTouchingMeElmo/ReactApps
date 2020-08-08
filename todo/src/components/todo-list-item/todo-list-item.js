@@ -3,28 +3,34 @@ import React, { Component } from "react";
 import "./todo-list-item.css";
 
 export default class ToDoListItem extends Component {
-  // Классический способ передачи функции внутрь самого объекта.
-  /* constructor() {
-    super();
-    this.onContentClick = () => {
-      console.log(`Done: ${this.props.content}`);
-    };
-  } */
-
   // Способ proposal Class Fields, еще не вошедший в стандарт.
-  onContentClick = () => {
+  /* onContentClick = () => {
     console.log(`Done: ${this.props.content}`);
-  };
+  }; */
+
+  // Классический способ передачи функции внутрь самого объекта.
+  constructor() {
+    super();
+    this.state = {
+      done: false,
+    };
+    this.onContentClick = () => {
+      this.setState({ done: true });
+    };
+  }
 
   render() {
     const { content, important = false } = this.props;
+    const { done } = this.state;
     const spanStyle = {
       color: important ? "steelblue" : "black",
       fontWeight: important ? "bold" : "normal",
     };
+    let classNames = "todo-list-item";
+    if (done) classNames += " done";
 
     return (
-      <span className="todo-list-item">
+      <span className={classNames}>
         <span
           style={spanStyle}
           className="todo-list-item-content"
