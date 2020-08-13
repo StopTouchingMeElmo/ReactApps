@@ -13,35 +13,34 @@ export default class ToDoListItem extends Component {
     super();
     this.state = {
       done: false,
+      important: false,
     };
     this.onContentClick = () => {
       this.setState({ done: true });
     };
+    this.onMarkImportant = () => {
+      this.setState({ important: true });
+    };
   }
 
   render() {
-    const { content, important = false } = this.props;
-    const { done } = this.state;
-    const spanStyle = {
-      color: important ? "steelblue" : "black",
-      fontWeight: important ? "bold" : "normal",
-    };
+    const { content } = this.props;
+    const { done, important } = this.state;
+
     let classNames = "todo-list-item";
     if (done) classNames += " done";
+    if (important) classNames += " important";
 
     return (
       <span className={classNames}>
-        <span
-          style={spanStyle}
-          className="todo-list-item-content"
-          onClick={this.onContentClick}
-        >
+        <span className="todo-list-item-content" onClick={this.onContentClick}>
           {content}
         </span>
 
         <button
           type="button"
           className="btn btn-outline-success btn-sm float-right"
+          onClick={this.onMarkImportant}
         >
           <i className="fa fa-exclamation" />
         </button>
