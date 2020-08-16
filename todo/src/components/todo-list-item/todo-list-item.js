@@ -16,10 +16,18 @@ export default class ToDoListItem extends Component {
       important: false,
     };
     this.onContentClick = () => {
-      this.setState({ done: true });
+      this.setState((state) => {
+        return {
+          done: !state.done,
+        };
+      });
     };
     this.onMarkImportant = () => {
-      this.setState({ important: true });
+      this.setState(({ important }) => {
+        return {
+          important: !important,
+        };
+      });
     };
   }
 
