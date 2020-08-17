@@ -252,5 +252,67 @@ constructor() {
     });
   };
 }
-
 //==================================================================================================================
+
+// Собственные события (ex. Delete)
+// Любой компонент может генерировать собственные события (onDone, onAdded, onDeleted...)
+// Достаточно передать callback функцию как property, а затем вызвать ее из компонента, когда наступило событие.
+// Через события данные поднимаются вверх по иерархии компонентов.
+
+// Мы передаем выше, по иерархии компонентов, информацию о том, что что-то произошло.
+// Когда мы кликаем на кнопку в <ToDoListItem/>, мы вызываем функцию, которую нам передал <ToDoList>
+// <ToDoList/>, в свою очередь, вызывает функцию, которую ему передал <App>
+// Т.о. <App/> узнает о том, что один из <ToDoListItem>'ов решил удалиться
+
+// И, когда состояние <App> (т.е массив наших объектов-дел) изменится - один из item'ов (дел) будет удален.
+
+<ToDoListItem/>
+const { content, onDeleted } = this.props;
+<button
+  type="button"
+  className="btn btn-outline-danger btn-sm float-right"
+  onClick={onDeleted}
+  >
+    <i className="fa fa-trash-o" />
+</button>
+
+<ToDoList/>
+const ToDoList = ({ todos, onDeleted }) => {
+  const elements = todos.map((el) => {
+    const { id, ...restProps } = el;
+    return (
+      <li key={id} className="list-group-item">
+        <ToDoListItem
+          {...restProps}
+          onDeleted={() => {
+            onDeleted(id);
+          }}
+        />
+      </li>
+    );
+  });
+  return <ul className="list-group todo-list">{elements}</ul>;
+};
+
+<App/>
+ 
+ <ToDoList
+ todos={todoData}
+ onDeleted={(id) => {
+   console.log("Deleted item", id);
+ }}
+/>
+
+// Иерархия наших компонентов:
+// <App>                             <---- todoData (наш массив объектов-дел)
+//     <AppHeader/>
+//     <SearchPanel/>
+//     <ItemStatusFilter/>
+//     <ToDoList/>
+//               <ToDoListItem/>     <---- Button
+//               <ToDoListItem/>     <---- Button
+
+//====================================================================================================================
+
+// setState() - удаление элемента. + смотри предыдущий раздел.
+//===================================================================================================================

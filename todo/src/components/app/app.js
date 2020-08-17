@@ -7,13 +7,13 @@ import ItemStatusFilter from "../item-status-filter";
 
 import "./app.css";
 
-const todoData = [
-  { id: 1, content: "Learn React", important: false },
-  { id: 2, content: "Learn JS", important: true },
-  { id: 3, content: "Build React App", important: false },
-];
-
 const App = () => {
+  const todoData = [
+    { id: 1, content: "Learn React", important: false },
+    { id: 2, content: "Learn JS", important: true },
+    { id: 3, content: "Build React App", important: false },
+  ];
+
   return (
     <div className="todo-app">
       <AppHeader toDo={1} done={5} />
@@ -21,7 +21,12 @@ const App = () => {
         <SearchPanel />
         <ItemStatusFilter />
       </div>
-      <ToDoList todos={todoData} />
+      <ToDoList
+        todos={todoData}
+        onDeleted={(id) => {
+          console.log("Deleted item", id);
+        }}
+      />
     </div>
   );
 };
